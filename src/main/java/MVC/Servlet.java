@@ -37,18 +37,62 @@ public class Servlet extends HttpServlet {
         
         String playerName = request.getParameter("playerName");
         
-        if (playerName==null) {
-            request.getRequestDispatcher("view.jsp").forward(request, response);
+        int guess;
+        int tries;
+        String jspView;
+        
+        if (playerName==null) { //page de login
+            jspView = "view.jsp";
+                    String action = request.getParameter("action2");
+                    if ("CONNECT".equals(action)) {
+                            playerName = request.getParameter("playerName");
+
+                            System.out.println(playerName+"if");
+
+                            session.setAttribute("playerName",playerName);
+
+                            guess = (int)(Math.random() * (100 + 1));  //nombre aléatoire
+                            session.setAttribute("guess",guess);
+
+                            tries = 0;                              //essai
+                            session.setAttribute("tries",tries);
+                        }
         }
         
         else {
-            request.setAttribute("playerName", playerName);
-            
-            int guess=0;
-            request.setAttribute("guess", guess);
-            
-            request.getRequestDispatcher("game.jsp").forward(request, response);
+            System.out.println(playerName+"else");
+                    jspView = "game.jsp";
+                    
+                    String bas = "bas";
+                    String haut = "haut";
+
+                    //getServletContext().setAttribute("mini",0);
+                    //getServletContext().setAttribute("maxi",100);
+
+                    
+                    guess = (int) session.getAttribute("guess");
+                                        
+                    String action = request.getParameter("action");
+                    
+                    if ("ADD".equals(action)) { 
+                        
+                        int proposition = Integer.parseInt(request.getParameter("nombre"));
+                        
+                        System.out.println("nombre"+proposition);
+                        
+                        tries = (int) session.getAttribute("tries");    //tries++
+                        tries += 1;
+                        getServletContext().setAttribute("tries",tries);
+                        session.setAttribute("tries",tries);
+
+                        if (proposition < guess) getServletContext().setAttribute("hauteur",bas);
+
+                        else if (proposition > guess) getServletContext().setAttribute("hauteur",haut);
+
+                        else request.getRequestDispatcher("victory.jsp").forward(request, response); 
+                    }
         }
+        request.getRequestDispatcher("view.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

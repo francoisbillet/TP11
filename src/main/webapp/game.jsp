@@ -20,12 +20,14 @@
         <br>
         <p> ${guess} </p>
         <h2>je pense à un nombre compris entre 0 et 100 </h2>
-        <form name="guessForm" method="POST">
+        <form method="POST">
+            <p> Trop ${hauteur} </p>
             <label>
                 Ta proposition :
-                <input type="number" min="0" max="100" required="" name="guess">
+                <input type="number" min="0" max="100" required="" name="nombre">
             </label>
-            <input type="SUBMIT" name="action" value="Deviner">
+            <input type="hidden" name="action" value="ADD">
+            <input name="deviner" value="Deviner" type="SUBMIT">
             <br>
         </form>
         <form method="POST">

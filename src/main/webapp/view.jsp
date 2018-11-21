@@ -20,6 +20,7 @@
             <label> Ton prénom :
                 <input name="playerName">
             </label>
+            <input type="hidden" name="action2" value="CONNECT">
             <input name="action" value="Connexion" type="SUBMIT">
         </form>
     </body>
