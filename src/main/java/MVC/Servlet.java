@@ -65,17 +65,11 @@ public class Servlet extends HttpServlet {
                     
                     String bas = "bas";
                     String haut = "haut";
-
-                    //getServletContext().setAttribute("mini",0);
-                    //getServletContext().setAttribute("maxi",100);
-
-                    
-                    guess = (int) session.getAttribute("guess");
-                                        
+                  
                     String action = request.getParameter("action");
                     
                     if ("ADD".equals(action)) { 
-                        
+                        guess = (int) session.getAttribute("guess");
                         int proposition = Integer.parseInt(request.getParameter("nombre"));
                         
                         System.out.println("nombre"+proposition);
@@ -92,7 +86,7 @@ public class Servlet extends HttpServlet {
                         else request.getRequestDispatcher("victory.jsp").forward(request, response); 
                     }
         }
-        request.getRequestDispatcher("view.jsp").forward(request, response);
+        request.getRequestDispatcher(jspView).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
